@@ -31,3 +31,4 @@ Order is especially important when using app.use() or parameterized/wildcard rou
 
 ## Q3 what is middleware and why do we use need it?
 When a request comes for a protected URL, Express first executes the middleware. If the middleware succeeds, it calls next() and the request reaches the route handler. If the middleware fails, it can send an error response itself, and the route handler will never execute.
+## Q4 error handling using app.use('/',(err,req,res,next)=>{}) also known as whild card error handling
