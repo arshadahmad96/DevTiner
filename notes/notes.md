@@ -28,3 +28,6 @@ Express processes routes in the order they are defined.
 Order is especially important when using app.use() or parameterized/wildcard routes, because they can match multiple paths.
 
 ## Q2. difference between get post delete pactch call and use method 
+
+## Q3 what is middleware and why do we use need it?
+When a request comes for a protected URL, Express first executes the middleware. If the middleware succeeds, it calls next() and the request reaches the route handler. If the middleware fails, it can send an error response itself, and the route handler will never execute.
