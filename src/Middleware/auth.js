@@ -6,6 +6,15 @@ adminAuth= ((req,res,next)=>{
         next();
     }
 })
+userAuth = ((req,res,next)=>{
+    let token = "zys";
+    if(token ==="ABC"){
+        next();
+    }else{
+        res.status(401).send("User not Authorised");
+    }
+})
 module.exports={
-    adminAuth
+    adminAuth,
+    userAuth
 }
