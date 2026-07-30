@@ -1,18 +1,27 @@
 const express= require("express");
-require('./config/database');
+const connectDb=require('./config/database');
 const app= express();
-const {adminAuth,userAuth}=require('./Middleware/auth');
 
-app.get('/admin/allData',adminAuth,(req,res,next)=>{
-    console.log("user data");
-    res.send("admin all data send")
+const {adminAuth,userAuth}=require('./Middleware/auth');
+const UserModel=require('./module/user');
+
+app.use(express.json());
+app.post('/signup',(req, res) => {
+    const user= new UserModel(req.body);
+    user.save().then((data)=>{
+        res.status(200).send(data);
+    }).catch((err)=>{
+        res.status(500).send(err);
+    });
 });
-app.get('/admin',adminAuth,(req,res)=>{
-    res.send("admin Data")
-});
-app.get('/user/allData',userAuth,(req,res,next)=>{
-    res.send("user all data send");
-})
-app.listen(3000,()=>{
+
+
+
+connectDb().then(()=>{
+    console.log("Data Base Connected");
+    app.listen(3000,()=>{
     console.log("listening at port 3000")
+});
+}).catch((err)=>{
+    console.log("Data Base Not Connected",err)
 });
