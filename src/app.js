@@ -15,6 +15,27 @@ app.post('/signup',(req, res) => {
     });
 });
 
+app.get('/getuser',async (req,res)=>{
+    try{
+        const allUsers=await UserModel.find({});
+        if(!allUsers) {res.status(400).send("User Not found")}
+        else{res.status(200).send(allUsers)};
+    }catch{
+        res.status(500).send('Internal server error');
+    }
+    await UserModel.find({});
+});
+
+app.get('/feed',async (req,res)=>{
+    try{
+        const userFeed=await UserModel.findOne({firstName:req.body.firstName});
+        console.log(userFeed)
+        if(!userFeed) {res.status(400).send("User Not found")}
+        else{res.status(200).send(userFeed)};
+    }catch{
+        res.status(501).send("Internal server error");
+    }
+});
 
 
 connectDb().then(()=>{
